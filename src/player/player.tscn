@@ -1,10 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://dd15po2wdg2gh"]
+[gd_scene load_steps=6 format=3 uid="uid://dd15po2wdg2gh"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_jb0hf"]
+[ext_resource type="PackedScene" uid="uid://vptpig3pl0if" path="res://src/components/health/health_component.tscn" id="2_xahy5"]
+[ext_resource type="PackedScene" uid="uid://bvlppm4khcaxq" path="res://src/components/hurtbox/hurtbox_component.tscn" id="3_85u1b"]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_usjr3"]
+size = Vector2(20, 10)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rh6qx"]
+height = 20.0
+
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_jb0hf")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_usjr3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_xahy5")]
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("3_85u1b")]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CapsuleShape2D_rh6qx")
