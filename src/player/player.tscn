@@ -1,29 +1,78 @@
-[gd_scene load_steps=6 format=3 uid="uid://dd15po2wdg2gh"]
+[gd_scene load_steps=13 format=3 uid="uid://dd15po2wdg2gh"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_jb0hf"]
+[ext_resource type="Texture2D" uid="uid://mjc1ymbaree" path="res://assets/entity/player/Slime-Sheet.png" id="2_qh0ww"]
 [ext_resource type="PackedScene" uid="uid://vptpig3pl0if" path="res://src/components/health/health_component.tscn" id="2_xahy5"]
 [ext_resource type="PackedScene" uid="uid://bvlppm4khcaxq" path="res://src/components/hurtbox/hurtbox_component.tscn" id="3_85u1b"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3q46"]
+atlas = ExtResource("2_qh0ww")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nivvu"]
+atlas = ExtResource("2_qh0ww")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_naxmd"]
+atlas = ExtResource("2_qh0ww")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v21eo"]
+atlas = ExtResource("2_qh0ww")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4eu7a"]
+atlas = ExtResource("2_qh0ww")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qtmy4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3q46")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nivvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_naxmd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v21eo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4eu7a")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_usjr3"]
-size = Vector2(20, 10)
+size = Vector2(24, 8)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rh6qx"]
-height = 20.0
+radius = 8.0
+height = 22.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_jb0hf")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_qtmy4")
+animation = &"idle"
+frame_progress = 0.702114
+
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_usjr3")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_xahy5")]
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("3_85u1b")]
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -8)
+rotation = 1.5708
 shape = SubResource("CapsuleShape2D_rh6qx")
