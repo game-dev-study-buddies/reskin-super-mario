@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_jb0hf"]
 [ext_resource type="Texture2D" uid="uid://baig7y3usficy" path="res://assets/entity/player/Slime-Death-Sheet.png" id="2_4qo0n"]
+[ext_resource type="Texture2D" uid="uid://mjc1ymbaree" path="res://assets/entity/player/Slime-Sheet.png" id="2_qh0ww"]
 [ext_resource type="PackedScene" uid="uid://vptpig3pl0if" path="res://src/components/health/health_component.tscn" id="2_xahy5"]
 [ext_resource type="PackedScene" uid="uid://bvlppm4khcaxq" path="res://src/components/hurtbox/hurtbox_component.tscn" id="3_85u1b"]
 [ext_resource type="Texture2D" uid="uid://4iejx2pp6iub" path="res://assets/entity/player/Slime-Idle-Sheet.png" id="3_tjhtk"]
