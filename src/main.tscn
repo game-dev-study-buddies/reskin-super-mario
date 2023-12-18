@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5ox85owkqeir"]
+[gd_scene load_steps=6 format=3 uid="uid://b5ox85owkqeir"]
 
 [ext_resource type="Texture2D" uid="uid://b20myh7djvtm" path="res://assets/environment/Grass-Tileset.png" id="1_8ed5a"]
 [ext_resource type="PackedScene" uid="uid://dd15po2wdg2gh" path="res://src/player/player.tscn" id="2_5dgsx"]
+[ext_resource type="PackedScene" uid="uid://dx4hh1lxdrqs" path="res://src/enemies/mushroom/mushroom.tscn" id="3_ltn6n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jd34a"]
 texture = ExtResource("1_8ed5a")
@@ -154,3 +155,6 @@ layer_0/tile_data = PackedInt32Array(1966084, 65536, 1, 2031620, 65536, 1, 20971
 
 [node name="Player" parent="." instance=ExtResource("2_5dgsx")]
 position = Vector2(322, 335)
+
+[node name="Mushroom" parent="." instance=ExtResource("3_ltn6n")]
+position = Vector2(206, 417)
