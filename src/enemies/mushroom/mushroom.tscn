@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dx4hh1lxdrqs"]
+[gd_scene load_steps=14 format=3 uid="uid://dx4hh1lxdrqs"]
 
 [ext_resource type="Script" path="res://src/enemies/mushroom/mushroom.gd" id="1_isqvs"]
 [ext_resource type="Texture2D" uid="uid://dio53t371pt3" path="res://assets/entity/fox/sunny_land_fox.png" id="1_jf7yj"]
 [ext_resource type="PackedScene" uid="uid://vptpig3pl0if" path="res://src/components/health/health_component.tscn" id="2_03e6w"]
 [ext_resource type="PackedScene" uid="uid://bvlppm4khcaxq" path="res://src/components/hurtbox/hurtbox_component.tscn" id="3_ayygs"]
+[ext_resource type="PackedScene" uid="uid://dgqxk185oabgx" path="res://src/components/hitbox/hitbox_component.tscn" id="4_qe7np"]
 
 [sub_resource type="Animation" id="Animation_eoj0w"]
 resource_name = "idle"
@@ -92,10 +93,14 @@ _data = {
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j5pt3"]
 radius = 8.0
-height = 18.0
+height = 22.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_revk0"]
+radius = 9.0
+height = 22.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0fhi"]
-size = Vector2(16.5, 8)
+size = Vector2(14.625, 8)
 
 [node name="Mushroom" type="CharacterBody2D"]
 script = ExtResource("1_isqvs")
@@ -115,14 +120,23 @@ hframes = 6
 vframes = 6
 frame = 7
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -8)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
 shape = SubResource("CapsuleShape2D_j5pt3")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_03e6w")]
 
+[node name="HitboxComponent" parent="." instance=ExtResource("4_qe7np")]
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_revk0")
+
 [node name="HurtboxComponent" parent="." instance=ExtResource("3_ayygs")]
+visible = false
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(-0.75, -18)
+position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_p0fhi")
+
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]

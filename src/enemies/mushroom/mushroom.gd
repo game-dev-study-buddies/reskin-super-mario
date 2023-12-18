@@ -30,3 +30,8 @@ func _physics_process(delta):
 #		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+
+func _on_hitbox_component_area_entered(area):
+	if area is Hurtbox:
+		print(area)

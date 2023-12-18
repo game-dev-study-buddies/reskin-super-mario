@@ -255,6 +255,7 @@ animations = [{
 "name": &"run",
 "speed": 5.0
 }]
+[ext_resource type="PackedScene" uid="uid://dgqxk185oabgx" path="res://src/components/hitbox/hitbox_component.tscn" id="4_lc8kv"]
 
 [sub_resource type="Animation" id="Animation_c6sg8"]
 resource_name = "idle"
@@ -365,12 +366,16 @@ _data = {
 "run": SubResource("Animation_fgakr")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_usjr3"]
-size = Vector2(24, 8)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_foyag"]
+radius = 8.0
+height = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5bii4"]
+size = Vector2(18, 4.5)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rh6qx"]
 radius = 8.0
-height = 22.0
+height = 24.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_jb0hf")
@@ -388,14 +393,22 @@ libraries = {
 "": SubResource("AnimationLibrary_holmq")
 }
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_usjr3")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_foyag")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_xahy5")]
+
+[node name="HitboxComponent" parent="." instance=ExtResource("4_lc8kv")]
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(1, 0.75)
+shape = SubResource("RectangleShape2D_5bii4")
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("3_85u1b")]
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(0, -8)
+position = Vector2(1, -8)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_rh6qx")

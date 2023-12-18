@@ -1,5 +1,5 @@
 extends Area2D
-class_name Hurtbox
+class_name Hitbox
 
 
 func _ready():
@@ -9,4 +9,3 @@ func _ready():
 func damage(attack: Attack):
 	# emit a signal with the attack information
 	pass
-
