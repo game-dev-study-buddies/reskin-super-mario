@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_jb0hf"]
 [ext_resource type="Texture2D" uid="uid://baig7y3usficy" path="res://assets/entity/player/Slime-Death-Sheet.png" id="2_4qo0n"]
-[ext_resource type="Texture2D" uid="uid://mjc1ymbaree" path="res://assets/entity/player/Slime-Sheet.png" id="2_qh0ww"]
 [ext_resource type="PackedScene" uid="uid://vptpig3pl0if" path="res://src/components/health/health_component.tscn" id="2_xahy5"]
 [ext_resource type="PackedScene" uid="uid://bvlppm4khcaxq" path="res://src/components/hurtbox/hurtbox_component.tscn" id="3_85u1b"]
 [ext_resource type="Texture2D" uid="uid://4iejx2pp6iub" path="res://assets/entity/player/Slime-Idle-Sheet.png" id="3_tjhtk"]
@@ -255,36 +254,6 @@ animations = [{
 "name": &"run",
 "speed": 5.0
 }]
-[ext_resource type="PackedScene" uid="uid://dgqxk185oabgx" path="res://src/components/hitbox/hitbox_component.tscn" id="4_lc8kv"]
-
-[sub_resource type="Animation" id="Animation_c6sg8"]
-resource_name = "idle"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
 
 [sub_resource type="Animation" id="Animation_ulhnj"]
 length = 0.001
@@ -301,8 +270,8 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_fgakr"]
-resource_name = "run"
+[sub_resource type="Animation" id="Animation_c6sg8"]
+resource_name = "idle"
 length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
@@ -315,7 +284,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"run"]
+"values": [&"idle"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -358,6 +327,35 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 }
 
+[sub_resource type="Animation" id="Animation_fgakr"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"run"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_holmq"]
 _data = {
 "RESET": SubResource("Animation_ulhnj"),
@@ -366,21 +364,18 @@ _data = {
 "run": SubResource("Animation_fgakr")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_foyag"]
-radius = 8.0
-height = 24.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5bii4"]
-size = Vector2(18, 4.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_usjr3"]
+size = Vector2(24, 8)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rh6qx"]
 radius = 8.0
-height = 24.0
+height = 22.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_jb0hf")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_em8g8")
 animation = &"jump"
@@ -393,22 +388,14 @@ libraries = {
 "": SubResource("AnimationLibrary_holmq")
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -8)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_foyag")
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_usjr3")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_xahy5")]
-
-[node name="HitboxComponent" parent="." instance=ExtResource("4_lc8kv")]
-
-[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(1, 0.75)
-shape = SubResource("RectangleShape2D_5bii4")
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("3_85u1b")]
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(1, -8)
+position = Vector2(0, -8)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_rh6qx")

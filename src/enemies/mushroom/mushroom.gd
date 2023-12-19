@@ -33,5 +33,5 @@ func _physics_process(delta):
 
 
 func _on_hitbox_component_area_entered(area):
-	if area is Hurtbox:
+	if area is Hitbox:
 		print(area)
